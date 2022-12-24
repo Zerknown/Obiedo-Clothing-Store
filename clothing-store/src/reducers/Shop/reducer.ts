@@ -15,24 +15,21 @@ export const shopReducer = (
         switch (action.type){
             
             case ShopStateActionType.UpdatePrice: 
+            console.log(ShopStateActionType.UpdatePrice, action.payload);
             return {
                 ...state,
                 totalCost: action.payload?.totalCost
             };
 
             case ShopStateActionType.AddProduct:
+                console.log(ShopStateActionType.AddProduct, action.payload);
                 return {
                     ...state,
                     products: action.payload?.products,
-                };
-            
-            case ShopStateActionType.SetIsInCart:
-                return {
-                    ...state,
-                    isInCart: !state.isInCart,
-                };            
+                };       
 
             case ShopStateActionType.SubtractProduct:
+                console.log(ShopStateActionType.SubtractProduct, action.payload);
                 return {
                     ...state,
                   products: action.payload?.products,  

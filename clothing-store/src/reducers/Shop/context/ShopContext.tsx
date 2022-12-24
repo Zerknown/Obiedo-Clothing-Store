@@ -1,5 +1,6 @@
+import { debug } from "console";
 import { createContext, useContext, useReducer } from "react";
-import { Products } from "../../../components/Products";
+
 import { Product } from "../../../models";
 import { setNewPrice, ShopStateActionType } from "../actions";
 import { shopReducer } from "../reducer";
@@ -7,7 +8,7 @@ import { initialState, ShopState  } from "../state";
 
 const ShopContext = createContext<ShopState>(initialState);
 
-export const ShopProvider = ( children: any) => {
+export const ShopProvider: React.FunctionComponent<ShopState> = ({children }) => {
     const [state, dispatch] = useReducer(shopReducer, initialState);
     const products = state.products ?? [];
     
@@ -55,16 +56,16 @@ export const ShopProvider = ( children: any) => {
         addNewProduct,
         removeFromCart
     };
-
     //<Products[]>
-    return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>
+    return <ShopContext.Provider value={value}>{children} {console.log("Checking")}</ShopContext.Provider>
 };
 
-const useShop = () => {
+
+export const useShop = () => {
     const context = useContext(ShopContext);
 
     if (context === undefined) {
-        throw new Error("use")
+        throw new Error("use");
     }
 
     return context;

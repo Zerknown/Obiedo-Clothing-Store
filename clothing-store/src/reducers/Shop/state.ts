@@ -1,13 +1,17 @@
 export type ShopState = {
-    isInCart?: boolean; 
     totalCost?: number; 
-    products?: any //[]
+    products?: any ;
+    addNewProduct?: any;
+    removeFromCart?: any;
+    children?: any;
 }
 
 export const initialState= {
-    isInCart: false, 
     totalCost: 0, 
-    products: []
+    products: [] ,
+    addNewProduct: () => {},
+    removeFromCart: () => {},
+    children: {},
 }
 
-//export type ShopState = typeof initialState;
+// export type ShopState = typeof initialState;

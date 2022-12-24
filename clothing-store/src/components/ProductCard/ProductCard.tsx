@@ -7,31 +7,44 @@ import {
 } from './ProductCard.styled';
 
 import { Product } from '../../models';
-import { setIsAddedColor, shopReducer } from '../../reducers/Shop';
-import { useReducer, useState } from 'react';
+import {  initialState, shopReducer } from '../../reducers/Shop';
+import { useEffect, useReducer, useState } from 'react';
+import { useShop } from '../../reducers/Shop/context/ShopContext';
+
 
 
 
 
 export const ProductCard = ({ name, imageUrl, price }: Product) => {
-    const [state, dispatch] = useReducer(shopReducer, {});
-    const { isInCart } = state;
-    const [insideCard, setinsideCard] = useState(false);
+    const [state, dispatch] = useReducer(shopReducer, initialState);
+    const [isInCart, setisInCart] = useState(false);
+    const {addNewProduct, removeFromCart, products} = useShop();
 
-    const checking = () => {
-        
-        if (insideCard){
-            setinsideCard(false);
+    useEffect(() => {
+      const productIsInCart = products.find((product: Product) => (product.name === name));
+    
+      if (productIsInCart){
+        setisInCart(true);
+      } else {
+        setisInCart(false);
+      }
+    }, [products, name])
+    
+
+    const handleClick = () => {
+        const product = { name, imageUrl, price};
+
+        if (isInCart){
+            removeFromCart(product);
         }else {
-            setinsideCard(true);
+            addNewProduct(true);
         }
-        dispatch(setIsAddedColor());
-        console.log("check 1");
+        
     }
 
     return(
     <Wrapper background={imageUrl}>
-        <AddButton isInCart={insideCard} style={{ color: isInCart ? '#E55336' : '#60c95d'}} onClick={checking}>
+        <AddButton isInCart={isInCart} style={{ color: isInCart ? '#E55336' : '#60c95d'}} onClick={handleClick}>
             <p>{isInCart ? '-' : '+'}</p>
         </AddButton>
         <TextContainer>
