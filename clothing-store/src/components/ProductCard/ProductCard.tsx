@@ -37,7 +37,7 @@ export const ProductCard = ({ name, imageUrl, price }: Product) => {
         if (isInCart){
             removeFromCart(product);
         }else {
-            addNewProduct(true);
+            addNewProduct(product);
         }
         
     }
