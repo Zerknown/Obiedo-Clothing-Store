@@ -68,7 +68,7 @@ export const ShopProvider: React.FunctionComponent<ShopState> = ({children }) =>
     const addProductToWishlist = (Wishlist: any) => {
         const updatedCart = state.wishlist?.concat(Wishlist);
         
-        updatePrice(updatedCart, 1);
+        
         dispatch({
             type: ShopStateActionType.addProductToWishlist,
             payload: {
