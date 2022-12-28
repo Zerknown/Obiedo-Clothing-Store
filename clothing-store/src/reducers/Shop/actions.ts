@@ -8,6 +8,8 @@ export enum ShopStateActionType {
     UpdateCart = 'UPDATE_CART',
     addProductToWishlist = 'ADD_PRODUCT_TO_WISHLIST',
     removeFromWishlist = 'removeFromWishlist',
+    checkOutCart = "CHECK_OUT_CART",
+    updatePriceQuantity = "UPDATE_PRICE_QUANTITY"
 };
 
 export type ShopStateAction = {

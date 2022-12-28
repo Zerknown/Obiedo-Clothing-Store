@@ -8,7 +8,10 @@ export type ShopState = {
     removeFromCart?: any,
     addProductToWishlist?: any,
     removeFromWishlist?: any,
-    wishlist?: any
+    wishlist?: any,
+    checkOutCart?: any,
+    checkOutList?: any,
+    updatePrice?: any
 }
 
 export const initialState = {
@@ -19,7 +22,10 @@ export const initialState = {
     subtractNewProduct: () => {},
     addProductToWishlist: () => {},
     removeFromWishlist: () => {},
-    wishlist: []
+    wishlist: [],
+    checkOutCart: () => {},
+    checkOutList: [],
+    updatePriceQuantity: () => {}
 }
 
 

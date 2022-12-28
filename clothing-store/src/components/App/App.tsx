@@ -13,7 +13,7 @@ export const App = () => {
      <ShopProvider>
         <Wrapper>
             <TitleWrapper>
-                <h1>Clothing Shop Starter Project</h1>
+                <h1>Obiedo's Clothing Shop</h1>
             </TitleWrapper>
             <LinksWrapper>
                 <Link to='/'>Home</Link>

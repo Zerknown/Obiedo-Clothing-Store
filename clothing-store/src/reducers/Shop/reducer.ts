@@ -47,6 +47,12 @@ export const shopReducer = (
                     ...state,
                     wishlist: action.payload?.wishlist,  
                 };
+            case ShopStateActionType.checkOutCart:
+                console.log(ShopStateActionType.checkOutCart, action.payload);
+                return {
+                    ...state,
+                    wishlist: action.payload?.checkOutList,  
+                };
             
                 default:
                 throw new Error(`No case for type ${ShopStateActionType} found in shopReducer.`);

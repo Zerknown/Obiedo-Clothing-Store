@@ -9,7 +9,7 @@ export const Checkout = () => {
     
     return (
         <>
-            <Title>Your cart total is {totalCost}.00$</Title>
+            <Title>Thank you for buying. Your cart total is {totalCost}.00$</Title>
             <ProductsWrapper>
                 {products.map((product: any, index: number) => (
                     <ProductCard {...product} key={index} />                 
