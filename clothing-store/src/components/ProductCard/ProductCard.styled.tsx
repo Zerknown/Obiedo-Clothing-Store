@@ -8,6 +8,10 @@ type AddButtonProps = {
     isInCart: boolean;
 };
 
+type WishListButtonProps = {
+    isWishListed: boolean;
+}
+
 export const Wrapper = styled.div<WrapperProps>`
     display: grid;
     align-items: flex-end;
@@ -48,6 +52,34 @@ export const AddButton = styled.div<AddButtonProps>`
             color: white;
         }
 `;
+
+export const WishListButton = styled.div<WishListButtonProps>`
+        position: absolute;
+        display: flex;
+        
+        align-center: center;
+        top: 20px;
+        left: 20px;
+        width: 70px;
+        height: 20px;
+        background: ${(props) => (props.isWishListed ? '#60c95d' : '#555555')};
+        border-radius: 20%;
+        padding: 10px;
+        cursor: pointer;
+
+        :hover {
+            transform: scale(1.2);
+            transition: 1s;
+        }
+
+        p {
+            font-size: 15px;
+            margin: 0;
+            color: white;
+        }
+`;
+
+
 
 export const TextContainer = styled.div`
         display: grid;
