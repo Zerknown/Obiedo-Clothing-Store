@@ -1,5 +1,6 @@
 import { debug } from "console";
 import { createContext, useContext, useReducer } from "react";
+import { Wishlist } from "../../components/Wishlist";
 
 import { Product } from "../../models";
 import { shopReducer } from "../Shop";
@@ -11,13 +12,12 @@ const ShopContext = createContext<ShopState>(initialState);
 
 export const ShopProvider: React.FunctionComponent<ShopState> = ({children }) => {
     const [state, dispatch] = useReducer(shopReducer, initialState);
-    const products = state.products ?? [];
     
     
     const addNewProduct = (product: any) => {
         const updatedCart = state.products?.concat(product);
         
-        console.log(updatedCart + "Checking Add New Product");
+        updatePrice(updatedCart, 1);
         dispatch({
             type: ShopStateActionType.AddProduct,
             payload: {
@@ -31,7 +31,7 @@ export const ShopProvider: React.FunctionComponent<ShopState> = ({children }) =>
         const updatedCart = state.products?.filter(
             (currentProduct: Product) => currentProduct.name !== product.name
         );
-        updatePrice(updatedCart);
+        updatePrice(updatedCart, 1);
         
         dispatch({
             type: ShopStateActionType.SubtractProduct,
@@ -41,10 +41,21 @@ export const ShopProvider: React.FunctionComponent<ShopState> = ({children }) =>
         });
     };
 
-    const updatePrice = (products: Product[] = []) => {
+    const updatePrice = (products: Product[] = [], quantity: number ,index?: string ) => {
         let totalCost = 0;
-        products.forEach((product: any) => (totalCost += product.price));
-        
+        let InitialIndex = 0;
+
+        products.forEach((product: any) => {
+            if(index == product.name){
+                totalCost += product.price * quantity;
+            }else{
+                totalCost += product.price;
+            }
+
+        });
+       
+        state.totalCost = totalCost;
+        console.log("Total Cost is " + totalCost);
         dispatch({
             type: ShopStateActionType.UpdatePrice,
             payload: {
@@ -54,24 +65,70 @@ export const ShopProvider: React.FunctionComponent<ShopState> = ({children }) =>
         });
     };
 
+    const addProductToWishlist = (Wishlist: any) => {
+        const updatedCart = state.wishlist?.concat(Wishlist);
+        
+        updatePrice(updatedCart, 1);
+        dispatch({
+            type: ShopStateActionType.addProductToWishlist,
+            payload: {
+                
+                wishlist: updatedCart 
+            }
+        });
+    };
+
+    const removeFromWishlist = (Wishlist: any) => {
+        const updatedCart = state.wishlist?.filter(
+            (currentWishlist: Product) => currentWishlist.name !== Wishlist.name
+        );
+        
+        dispatch({
+            type: ShopStateActionType.removeFromWishlist,
+            payload: {
+                wishlist:  updatedCart
+            }
+        });
+    };
+
+    const updatePriceQuantity = (Product: any, index: any, quantity: number) => {
+        const updatedPrice = state.products[index];
+        
+        if(quantity > 0){
+            updatedPrice.price *= quantity;
+        }else{
+            updatedPrice.price *= 1;
+        }
+        state.products = updatedPrice
+        
+    }
+
     const value = {
-        total: state.totalCost,
+        totalCost: state.totalCost,
         products: state.products,
+        wishlist: state.wishlist,
         addNewProduct,
-        removeFromCart
+        removeFromCart,
+        addProductToWishlist,
+        removeFromWishlist,
+        updatePrice    
     };
     //<Products[]>
+
+    
     return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>
 };
 
 
 export const useShop = () => {
     const context = useContext(ShopContext);
+    
+
 
     if (context === undefined) {
         throw new Error("use");
     }
-
+    
     return context;
 }
 

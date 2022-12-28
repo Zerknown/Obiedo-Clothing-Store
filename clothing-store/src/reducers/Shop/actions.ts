@@ -5,7 +5,9 @@ export enum ShopStateActionType {
     UpdatePrice = 'UPDATE_PRICE',
     AddProduct = 'ADD_PRODUCT',
     SubtractProduct = 'SUBTRACT_PRODUCT',
-    UpdateCart = 'UPDATE_CART'
+    UpdateCart = 'UPDATE_CART',
+    addProductToWishlist = 'ADD_PRODUCT_TO_WISHLIST',
+    removeFromWishlist = 'removeFromWishlist',
 };
 
 export type ShopStateAction = {

@@ -1,17 +1,27 @@
+import { Product } from "../../models";
+
 export type ShopState = {
-    totalCost?: number; 
-    products?: any ;
-    addNewProduct?: any;
-    removeFromCart?: any;
-    children?: any;
+    totalCost?: number,
+    products?: any,
+    addNewProduct?: any,
+    children?: any,
+    removeFromCart?: any,
+    addProductToWishlist?: any,
+    removeFromWishlist?: any,
+    wishlist?: any
 }
 
-export const initialState= {
-    totalCost: 0, 
-    products: [] ,
+export const initialState = {
+    totalCost: 0,
+    products: [],
     addNewProduct: () => {},
-    removeFromCart: () => {},
-    children: {},
+    children: [],
+    subtractNewProduct: () => {},
+    addProductToWishlist: () => {},
+    removeFromWishlist: () => {},
+    wishlist: []
 }
+
+
 
 // export type ShopState = typeof initialState;
